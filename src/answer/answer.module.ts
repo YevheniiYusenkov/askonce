@@ -4,6 +4,6 @@ import { AnswerGateway } from './answer.gateway';
 
 @Module({
   controllers: [],
-  providers: [AnswerService, AnswerGateway]
+  providers: [AnswerService, AnswerGateway],
 })
 export class AnswerModule {}
