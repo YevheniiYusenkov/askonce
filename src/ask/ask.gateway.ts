@@ -6,17 +6,19 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { CACHE_MANAGER, Inject } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+
+import { AskService } from './ask.service';
 
 @WebSocketGateway({ namespace: 'ask' })
 export class AskGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
-  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+  constructor(private service: AskService) {}
 
-  async handleConnection(client: Socket): Promise<void> {}
+  async handleConnection(client: Socket): Promise<void> {
+    await this.service.hello();
+  }
 
   async handleDisconnect(client: Socket): Promise<void> {}
 
